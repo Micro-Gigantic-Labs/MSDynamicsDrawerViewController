@@ -518,41 +518,43 @@ void MSDynamicsDrawerDirectionActionForMaskedValues(NSInteger direction, MSDynam
 - (UIBezierPath *)boundaryPathForState:(MSDynamicsDrawerPaneState)state direction:(MSDynamicsDrawerDirection)direction
 {
     NSAssert(MSDynamicsDrawerDirectionIsCardinal(direction), @"Boundary is undefined for a non-cardinal reveal direction");
+    CGFloat plus1 = 1;
+    CGFloat plus2 = 1;
     CGRect boundary = CGRectZero;
-    boundary.origin = (CGPoint){-1.0, -1.0};
+    boundary.origin = (CGPoint){-0.5, -0.5};
     if (self.possibleDrawerDirection & MSDynamicsDrawerDirectionHorizontal) {
-        boundary.size.height = (CGRectGetHeight(self.paneView.frame) + 1.0);
+        boundary.size.height = (CGRectGetHeight(self.paneView.frame) + plus1);
         switch (state) {
             case MSDynamicsDrawerPaneStateClosed:
-                boundary.size.width = ((CGRectGetWidth(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + 2.0);
+                boundary.size.width = ((CGRectGetWidth(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + plus2);
                 break;
             case MSDynamicsDrawerPaneStateOpen:
-                boundary.size.width = ((CGRectGetWidth(self.paneView.frame) + self.openStateRevealWidth) + 2.0);
+                boundary.size.width = ((CGRectGetWidth(self.paneView.frame) + self.openStateRevealWidth) + plus2);
                 break;
             case MSDynamicsDrawerPaneStateOpenWide:
-                boundary.size.width = ((CGRectGetWidth(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + 2.0);
+                boundary.size.width = ((CGRectGetWidth(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + plus2);
                 break;
         }
     } else if (self.possibleDrawerDirection & MSDynamicsDrawerDirectionVertical) {
-        boundary.size.width = (CGRectGetWidth(self.paneView.frame) + 1.0);
+        boundary.size.width = (CGRectGetWidth(self.paneView.frame) + plus1);
         switch (state) {
             case MSDynamicsDrawerPaneStateClosed:
-                boundary.size.height = ((CGRectGetHeight(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + 2.0);
+                boundary.size.height = ((CGRectGetHeight(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + plus2);
                 break;
             case MSDynamicsDrawerPaneStateOpen:
-                boundary.size.height = ((CGRectGetHeight(self.paneView.frame) + self.openStateRevealWidth) + 2.0);
+                boundary.size.height = ((CGRectGetHeight(self.paneView.frame) + self.openStateRevealWidth) + plus2);
                 break;
             case MSDynamicsDrawerPaneStateOpenWide:
-                boundary.size.height = ((CGRectGetHeight(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + 2.0);
+                boundary.size.height = ((CGRectGetHeight(self.paneView.frame) * 2.0) + self.paneStateOpenWideEdgeOffset + plus2);
                 break;
         }
     }
     switch (direction) {
         case MSDynamicsDrawerDirectionRight:
-            boundary.origin.x = ((CGRectGetWidth(self.paneView.frame) + 1.0) - boundary.size.width);
+            boundary.origin.x = ((CGRectGetWidth(self.paneView.frame) + plus1) - boundary.size.width);
             break;
         case MSDynamicsDrawerDirectionBottom:
-            boundary.origin.y = ((CGRectGetHeight(self.paneView.frame) + 1.0) - boundary.size.height);
+            boundary.origin.y = ((CGRectGetHeight(self.paneView.frame) + plus1) - boundary.size.height);
             break;
         case MSDynamicsDrawerDirectionNone:
             boundary = CGRectZero;
